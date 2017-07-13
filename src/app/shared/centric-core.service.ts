@@ -1,15 +1,18 @@
 import {Injectable} from '@angular/core';
 import { Customer } from "app/model/customer";
+import { EntityManager, EntityQuery } from "breeze-client";
 
 @Injectable()
 export class CentricCoreService {
+    private _em : EntityManager = new EntityManager("http://zzaapi.azurewebsites.net/breeze/zza");
 
     constructor() {}
 
     getCustomers() : Promise<Customer[]> {
         let promise = new Promise<Customer[]>((resolve, reject) => {
-            let customers = this.getCustomerDummyData();
-            resolve(customers);
+            let query = EntityQuery.from("Customers");
+            this._em.executeQuery(query).then(queryResult => resolve(<any>queryResult.results),
+                                              error => reject(error));
         });
         return promise;
     }
