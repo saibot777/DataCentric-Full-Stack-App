@@ -1,0 +1,25 @@
+<div>
+  <h3>Place Order</h3>
+  <div>
+    <button class="btn btn-primary" (click)="submitOrder()">Submit Order</button>
+    <button class="btn btn-default" (click)="cancelOrder()">Cancel Order</button>
+  </div>
+  <h4>Order Items:</h4>
+  <ul>
+    <li *ngFor="let item of orderItems">{{item.product.name}} - {{item.size.name}}</li>
+  </ul>
+  <ul class="nav nav-tabs">
+    <li [ngClass]="{'active': selectedTab === 'pizzas'}">
+      <a (click)="selectedTab = 'pizzas'">Pizzas</a>
+    </li>
+    <li [ngClass]="{'active': selectedTab === 'salads'}">
+      <a (click)="selectedTab = 'salads'">Salads</a>
+    </li>
+    <li [ngClass]="{'active': selectedTab === 'drinks'}">
+      <a (click)="selectedTab = 'drinks'">Drinks</a>
+    </li>
+  </ul>
+  <zza-product-list [products]="pizzas" (addProduct)="addToOrder($event)" *ngIf="selectedTab === 'pizzas'" [productType]="'pizza'"></zza-product-list>
+  <zza-product-list [products]="salads" (addProduct)="addToOrder($event)" *ngIf="selectedTab === 'salads'" [productType]="'salad'"></zza-product-list>
+  <zza-product-list [products]="drinks" (addProduct)="addToOrder($event)" *ngIf="selectedTab === 'drinks'" [productType]="'drink'"></zza-product-list>
+</div>

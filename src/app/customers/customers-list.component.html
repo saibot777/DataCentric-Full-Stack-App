@@ -1,4 +1,22 @@
 <h1>Customers</h1>
+<div class="row" *ngIf="pageCount">
+  <span>
+      <a class="btn btn-default" (click)="pageDown()">&lt;</a>{{currentPage}}/{{pageCount}}<a class="btn btn-default" (click)="pageUp()">&gt;</a>
+  </span>
+</div>
+
+<div class="row">
+  <label for="searchInput">Search:</label>
+  <input type="text" name="searchInput" autofocus [(ngModel)]="searchInput">
+  <select [(ngModel)]="searchField" (change)="search(searchTerm.value)">
+            <option value="name" selected>Name</option>
+            <option value="phone">Phone</option>
+            <option value="email">Email</option>
+  </select>
+  <button class="btn btn-primary" routerLink="/customer-add">Add Customer</button>
+</div>
+
 <div class="row" *ngFor="let customer of customers">
-    <div class="col-md-6">{{customer.firstName}} {{customer.lastName}}</div>
+  <zza-customers-list-item [customer]="customer" [selectedCustomer]="selectedCustomer"
+    (deleted)="refresh()" (click)="onSelect(customer)"></zza-customers-list-item>
 </div>

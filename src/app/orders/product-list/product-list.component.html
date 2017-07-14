@@ -1,0 +1,18 @@
+<table class="table table-striped">
+  <tbody>
+    <tr *ngFor="let product of products" (click)="selectProduct(product)" [ngClass]="{'success': product === selectedProduct}">
+      <td><img src="/images/{{product.image}}" /></td>
+      <td width="50%"><span style="font-weight: bold">{{product.name}}</span><br /><span>{{product.description}}</span></td>
+      <td>
+        <select class="form-control" [(ngModel)]="selectedProductSizeId" *ngIf="product === selectedProduct" style="width: 200px">
+          <option *ngIf="selectedProductSizeId == -1" value="-1">Select Product Size</option>
+          <option *ngFor="let productSize of productSizes" [ngValue]="productSize.id">{{productSize.name}}</option>
+        </select>
+      </td>
+      <td><button class="btn btn-primary" (click)="addToOrder()"
+        [disabled]="product !== selectedProduct || (selectedProductSizeId === -1)">Add to Order</button>
+      </td>
+
+    </tr>
+  </tbody>
+</table>

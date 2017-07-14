@@ -1,0 +1,41 @@
+<div style="margin-top: 10px">
+  <hr [ngClass]="{ 'current-customer': isSelected }" />
+  <div class="row">
+    <div class="col-md-6">{{customer.firstName}} {{customer.lastName}}</div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">{{customer.email}}</div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">{{customer.phone}}</div>
+    <div class="col-md-3">{{customer.state}}</div>
+  </div>
+  <div class="row" *ngIf="isSelected">
+    <div class="col-md-6">
+      <a class="btn btn-primary" routerLink="/customer-detail/{{customer.id}}">Details</a>
+      <a class="btn btn-danger" (click)="deleteCustomer()">Delete</a>
+      <a class="btn btn-success" routerLink="/order/{{customer.id}}">Place Order</a>
+    </div>
+  </div>
+  <hr [ngClass]="{ 'current-customer': isSelected }" />
+</div>
+
+<div class="modal fade" bsModal #deleteModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Delete Customer</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="deleteModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this customer?
+      </div>
+      <div class="modal-footer">
+        <button class='btn btn-default' (click)="deleteModal.hide()">Cancel</button>
+        <button class="btn btn-danger" (click)="confirmDeleteCustomer()">Delete</button>
+      </div>
+    </div>
+  </div>
